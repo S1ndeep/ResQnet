@@ -1,0 +1,491 @@
+.dashboard-page {
+  min-height: calc(100vh - 80px);
+  background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
+  background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920&h=1080&fit=crop'), linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
+  background-blend-mode: overlay;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  padding: 30px 20px;
+  position: relative;
+}
+
+.dashboard-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 0;
+}
+
+.dashboard-page > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.dashboard-page h1 {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-hover) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.dashboard-page > .container > p {
+  color: var(--text-secondary);
+  font-size: 16px;
+  margin-bottom: 30px;
+}
+
+.dashboard-actions {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+/* Dashboard Grid Layout */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+  margin-bottom: 30px;
+}
+
+/* Use shared .card base for consistent appearance, override only where needed */
+.dashboard-page .card {
+  background: rgba(26, 26, 26, 0.85);
+  border-radius: 16px;
+  padding: 28px;
+  min-height: 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dashboard-page .card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 183, 255, 0.3);
+  box-shadow: 0 12px 48px rgba(0, 183, 255, 0.2);
+}
+
+.dashboard-page .card h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dashboard-page .card h2::before {
+  content: '';
+  width: 4px;
+  height: 24px;
+  background: var(--gradient-primary);
+  border-radius: 2px;
+}
+
+.dashboard-page .card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 183, 255, 0.35);
+  box-shadow: 0 10px 30px rgba(0, 183, 255, 0.12);
+}
+
+.dashboard-page .card h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--accent-color);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dashboard-page .card h2::before {
+  content: '';
+  width: 4px;
+  height: 24px;
+  background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-hover) 100%);
+  border-radius: 2px;
+}
+
+/* Form Card Specific Styling */
+.dashboard-page .card form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dashboard-page .card form .form-group {
+  margin-bottom: 0;
+}
+
+.dashboard-page .card form .form-group label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.dashboard-page .card form .form-group {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.dashboard-page .card form .form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--accent-color);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.dashboard-page .card form .form-group input,
+.dashboard-page .card form .form-group select,
+.dashboard-page .card form .form-group textarea {
+  width: 100%;
+  padding: 14px 18px;
+  border: 2px solid rgba(0, 183, 255, 0.2);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+  font-size: 15px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-page .card form .form-group input:focus,
+.dashboard-page .card form .form-group select:focus,
+.dashboard-page .card form .form-group textarea:focus {
+  border-color: var(--accent-color);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 16px rgba(0, 183, 255, 0.15);
+  outline: none;
+}
+
+.dashboard-page .card form .form-group input::placeholder,
+.dashboard-page .card form .form-group textarea::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.dashboard-page .card form .form-group select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='%2300b7ff' viewBox='0 0 12 8'%3E%3Cpath d='M6 8L0 0h12L6 8z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 18px center;
+  padding-right: 45px;
+}
+
+.dashboard-page .card form .form-group input:focus,
+.dashboard-page .card form .form-group select:focus,
+.dashboard-page .card form .form-group textarea:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 0 3px rgba(0, 183, 255, 0.1);
+}
+
+/* Map Card Specific Styling */
+.dashboard-map-container {
+  height: 500px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 2px solid rgba(0, 183, 255, 0.2);
+  margin-top: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.dashboard-map-container:hover {
+  border-color: rgba(0, 183, 255, 0.4);
+  box-shadow: 0 12px 48px rgba(0, 183, 255, 0.2);
+  transform: translateY(-4px);
+}
+
+.dashboard-map-controls {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 400;
+  display: flex;
+  gap: 12px;
+  padding: 8px;
+  background: rgba(26, 26, 26, 0.85);
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.map-legend {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  z-index: 400;
+  background: rgba(26, 26, 26, 0.9);
+  backdrop-filter: blur(8px);
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.map-legend h4 {
+  color: var(--accent-color);
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.map-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.dashboard-map-controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.dashboard-map-controls button {
+  padding: 8px 16px;
+  font-size: 14px;
+}
+
+.map-legend {
+  margin-top: 15px;
+  padding: 15px;
+  background: rgba(0, 183, 255, 0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(0, 183, 255, 0.2);
+}
+
+.map-legend h4 {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+.map-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.map-legend-item:last-child {
+  margin-bottom: 0;
+}
+
+/* Fix Leaflet zoom controls positioning */
+.dashboard-page .leaflet-container {
+  position: relative;
+  z-index: 1;
+}
+
+.dashboard-page .leaflet-control-zoom {
+  display: none !important;
+}
+
+.dashboard-page .leaflet-control-container .leaflet-control-zoom {
+  display: none !important;
+}
+
+.dashboard-page .leaflet-control-zoom-in,
+.dashboard-page .leaflet-control-zoom-out {
+  display: none !important;
+}
+
+.dashboard-page .leaflet-control-container {
+  z-index: 10 !important;
+}
+
+.dashboard-page .leaflet-pane {
+  z-index: 1 !important;
+}
+
+.dashboard-page .leaflet-map-pane {
+  z-index: 1 !important;
+}
+
+/* Requests List Section */
+.requests-list {
+  margin-top: 30px;
+}
+
+.requests-list h2 {
+  font-size: 28px;
+  color: var(--accent-color);
+  margin-bottom: 25px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.requests-list h2::before {
+  content: '';
+  width: 4px;
+  height: 28px;
+  background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-hover) 100%);
+  border-radius: 2px;
+}
+
+.requests-list > p {
+  color: var(--text-secondary);
+  font-size: 16px;
+  text-align: center;
+  padding: 40px;
+  background: rgba(26, 26, 26, 0.5);
+  border-radius: 12px;
+  border: 1px dashed rgba(0, 183, 255, 0.2);
+}
+
+.request-card {
+  background: linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(15, 15, 15, 0.95) 100%);
+  border-radius: 12px;
+  padding: 25px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 183, 255, 0.2);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.request-card:hover {
+  transform: translateX(5px);
+  border-color: rgba(0, 183, 255, 0.4);
+  box-shadow: 0 6px 30px rgba(0, 183, 255, 0.15);
+}
+
+.request-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.request-header h3 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.request-header div {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.request-info {
+  display: flex;
+  gap: 25px;
+  margin-top: 15px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  flex-wrap: wrap;
+}
+
+.request-info span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.request-card p {
+  color: var(--text-tertiary);
+  line-height: 1.6;
+  margin: 15px 0;
+  font-size: 14px;
+}
+
+.card-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  flex-wrap: wrap;
+}
+
+.card-actions .btn {
+  padding: 10px 20px;
+  font-size: 14px;
+  min-width: 120px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .dashboard-page .card {
+    min-height: 500px;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-page {
+    padding: 20px 15px;
+  }
+  
+  .dashboard-page h1 {
+    font-size: 28px;
+  }
+  
+  .dashboard-page .card {
+    padding: 20px;
+    min-height: 450px;
+  }
+  
+  .dashboard-page .card h2 {
+    font-size: 20px;
+  }
+  
+  .request-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .request-info {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .dashboard-map-container {
+    height: 400px;
+  }
+}

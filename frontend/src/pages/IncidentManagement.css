@@ -1,0 +1,205 @@
+.incident-management-container {
+  max-width: 1400px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.incident-management-page {
+  min-height: calc(100vh - 80px);
+  background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
+  background-image: url('https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=1920&h=1080&fit=crop');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-blend-mode: overlay;
+  padding: 40px 20px;
+  position: relative;
+}
+
+.incident-management-page::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.incident-management-page > * {
+  position: relative;
+  z-index: 1;
+}
+
+.incident-management-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.incident-management-header h2 {
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+
+.incident-management-header p {
+  color: var(--text-secondary);
+}
+
+.incident-sections {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.pending-incidents-section,
+.all-incidents-section {
+  /* Use shared card look */
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 6px 20px var(--shadow);
+  border: 1px solid var(--border-color);
+}
+
+.pending-incidents-section h3,
+.all-incidents-section h3 {
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.no-incidents {
+  text-align: center;
+  color: var(--text-secondary);
+  padding: 40px;
+}
+
+.incident-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-height: 700px;
+  overflow-y: auto;
+}
+
+.incident-card {
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+  border-radius: 10px;
+  padding: 18px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 6px 18px var(--shadow);
+}
+
+.incident-card.pending {
+  border-left-color: #ffc107;
+}
+
+.incident-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.incident-header h4 {
+  color: var(--text-primary);
+  margin: 0;
+  font-size: 18px;
+}
+
+.status-badge,
+.severity-badge {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+}
+
+.incident-location {
+  color: var(--text-primary);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.incident-description {
+  color: var(--text-secondary);
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.incident-meta {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 15px;
+}
+
+.incident-meta p {
+  margin: 5px 0;
+}
+
+.incident-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.incident-actions .btn {
+  padding: 8px 16px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: opacity 0.3s;
+}
+
+.incident-actions .btn-success {
+  background: #28a745;
+  color: white;
+}
+
+.incident-actions .btn-secondary {
+  background: #6c757d;
+  color: white;
+}
+
+.incident-actions .btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 1024px) {
+  .incident-sections {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .incident-management-container {
+    margin: 20px auto;
+    padding: 0 15px;
+  }
+
+  .pending-incidents-section,
+  .all-incidents-section {
+    padding: 20px;
+  }
+
+  .incident-card {
+    padding: 15px;
+  }
+
+  .incident-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+

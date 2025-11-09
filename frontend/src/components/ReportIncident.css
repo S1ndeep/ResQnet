@@ -1,0 +1,87 @@
+.report-incident-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.report-incident-card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: var(--shadow);
+}
+
+.report-incident-header {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.report-incident-header h2 {
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+
+.report-incident-header p {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.report-incident-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.report-incident-form .form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.report-incident-form label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+
+.report-incident-form input,
+.report-incident-form select,
+.report-incident-form textarea {
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 14px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  transition: border-color 0.3s;
+}
+
+.report-incident-form input:focus,
+.report-incident-form select:focus,
+.report-incident-form textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.report-incident-form textarea {
+  resize: vertical;
+  font-family: inherit;
+}
+
+.report-incident-form small {
+  color: var(--text-secondary);
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+@media (max-width: 768px) {
+  .report-incident-container {
+    margin: 20px auto;
+    padding: 0 15px;
+  }
+
+  .report-incident-card {
+    padding: 20px;
+  }
+}
+
+

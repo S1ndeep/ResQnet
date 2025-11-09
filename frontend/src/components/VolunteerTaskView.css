@@ -1,0 +1,179 @@
+.volunteer-task-view-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.volunteer-task-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.volunteer-task-header h2 {
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+
+.volunteer-task-header p {
+  color: var(--text-secondary);
+}
+
+.no-profile-message,
+.no-tasks-message {
+  text-align: center;
+  padding: 40px;
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.no-profile-message p,
+.no-tasks-message p {
+  color: var(--text-secondary);
+  font-size: 16px;
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.task-card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: var(--shadow);
+  border-left: 4px solid var(--primary-color);
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.task-header h3 {
+  color: var(--text-primary);
+  margin: 0 0 10px 0;
+}
+
+.task-status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  margin-left: 10px;
+}
+
+.task-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.task-actions .btn {
+  padding: 8px 16px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.task-actions .btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.task-actions .btn-success {
+  background: #28a745;
+  color: white;
+}
+
+.task-actions .btn-danger {
+  background: #dc3545;
+  color: white;
+}
+
+.task-description {
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.incident-info {
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.incident-info h4 {
+  color: var(--text-primary);
+  margin: 0 0 10px 0;
+  font-size: 16px;
+}
+
+.incident-details {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.incident-details p {
+  margin: 8px 0;
+}
+
+.map-link {
+  display: inline-block;
+  margin-top: 10px;
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 600;
+  transition: opacity 0.3s;
+}
+
+.map-link:hover {
+  opacity: 0.8;
+}
+
+.task-meta {
+  font-size: 13px;
+  color: var(--text-secondary);
+  padding-top: 15px;
+  border-top: 1px solid var(--border-color);
+}
+
+.task-meta p {
+  margin: 5px 0;
+}
+
+@media (max-width: 768px) {
+  .volunteer-task-view-container {
+    margin: 20px auto;
+    padding: 0 15px;
+  }
+
+  .task-card {
+    padding: 20px;
+  }
+
+  .task-header {
+    flex-direction: column;
+  }
+
+  .task-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .task-actions .btn {
+    flex: 1;
+  }
+}
+
+

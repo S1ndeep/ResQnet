@@ -1,0 +1,139 @@
+.alert-banner-container {
+  position: fixed;
+  top: 80px;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  padding: 0 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.alert-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  animation: slideDown 0.3s ease-out;
+  border-left: 4px solid;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.alert-info {
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+  border-left-color: var(--accent-color);
+  color: var(--text-primary);
+}
+
+.alert-warning {
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+  border-left-color: #ffc107;
+  color: var(--text-primary);
+}
+
+.alert-danger {
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+  border-left-color: #ff3366;
+  color: var(--text-primary);
+}
+
+.alert-success {
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+  border-left-color: #00ff88;
+  color: var(--text-primary);
+}
+
+.alert-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  flex: 1;
+}
+
+.alert-icon {
+  font-size: 24px;
+  margin-top: 2px;
+}
+
+.alert-info .alert-icon {
+  color: var(--accent-color);
+}
+
+.alert-warning .alert-icon {
+  color: #ffc107;
+}
+
+.alert-danger .alert-icon {
+  color: #ff3366;
+}
+
+.alert-success .alert-icon {
+  color: #00ff88;
+}
+
+.alert-text {
+  flex: 1;
+}
+
+.alert-text strong {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.alert-text p {
+  margin: 0;
+  font-size: 14px;
+  opacity: 0.9;
+  line-height: 1.4;
+}
+
+.alert-close {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 18px;
+  padding: 4px 8px;
+  transition: all 0.2s;
+  border-radius: 4px;
+}
+
+.alert-close:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 768px) {
+  .alert-banner-container {
+    top: 70px;
+    padding: 0 10px;
+  }
+
+  .alert-banner {
+    padding: 12px 16px;
+  }
+
+  .alert-text strong {
+    font-size: 14px;
+  }
+
+  .alert-text p {
+    font-size: 13px;
+  }
+}
+

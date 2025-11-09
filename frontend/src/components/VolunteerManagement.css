@@ -1,0 +1,195 @@
+.volunteer-management-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.volunteer-management-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.volunteer-management-header h2 {
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+
+.volunteer-management-header p {
+  color: var(--text-secondary);
+}
+
+.no-volunteers {
+  text-align: center;
+  padding: 40px;
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.volunteer-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.volunteer-card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: var(--shadow);
+  border-left: 4px solid var(--primary-color);
+}
+
+.volunteer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.volunteer-header h3 {
+  color: var(--text-primary);
+  margin: 0 0 5px 0;
+}
+
+.volunteer-email {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin: 0;
+}
+
+.status-badges {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.status-badge,
+.task-status-badge {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+}
+
+.task-status-badge {
+  background: #6c757d;
+}
+
+.volunteer-details {
+  margin-bottom: 15px;
+}
+
+.skills-section,
+.bio-section {
+  margin-bottom: 15px;
+}
+
+.skills-section strong,
+.bio-section strong {
+  color: var(--text-primary);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skill-tag {
+  background: var(--primary-color);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.no-skills {
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.bio-section p {
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.volunteer-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-top: 15px;
+  border-top: 1px solid var(--border-color);
+}
+
+.volunteer-actions .btn {
+  padding: 8px 16px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.volunteer-actions .btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.volunteer-actions .btn-success {
+  background: #28a745;
+  color: white;
+}
+
+.volunteer-actions .btn-danger {
+  background: #dc3545;
+  color: white;
+}
+
+.volunteer-actions .btn-secondary {
+  background: #6c757d;
+  color: white;
+}
+
+.edit-skills-form {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid var(--border-color);
+}
+
+.edit-skills-form label {
+  color: var(--text-primary);
+  font-weight: 600;
+  display: block;
+  margin-bottom: 5px;
+}
+
+@media (max-width: 768px) {
+  .volunteer-management-container {
+    margin: 20px auto;
+    padding: 0 15px;
+  }
+
+  .volunteer-card {
+    padding: 20px;
+  }
+
+  .volunteer-header {
+    flex-direction: column;
+  }
+
+  .volunteer-actions {
+    flex-direction: column;
+  }
+
+  .volunteer-actions .btn {
+    width: 100%;
+  }
+}
+
+

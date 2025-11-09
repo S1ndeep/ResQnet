@@ -1,0 +1,21 @@
+{
+  "name": "disaster-management-system",
+  "version": "1.0.0",
+  "description": "Disaster Management & Volunteer Coordination System",
+  "main": "server.js",
+  "scripts": {
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "backend": "cd backend && npm run dev",
+    "frontend": "cd frontend && npm start",
+    "install-backend": "cd backend && npm install",
+    "install-frontend": "cd frontend && npm install",
+    "install-all": "npm install && npm run install-backend && npm run install-frontend"
+  },
+  "keywords": ["disaster", "management", "volunteer", "coordination"],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
+

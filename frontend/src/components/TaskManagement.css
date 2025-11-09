@@ -1,0 +1,149 @@
+.task-management-container {
+  max-width: 1400px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.task-management-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.task-management-header h2 {
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+
+.task-management-header p {
+  color: var(--text-secondary);
+}
+
+.task-management-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.task-form-section,
+.task-list-section {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: var(--shadow);
+}
+
+.task-form-section h3,
+.task-list-section h3 {
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.task-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.task-form .form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.task-form label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+
+.task-form input,
+.task-form select,
+.task-form textarea {
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 14px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.task-form textarea {
+  resize: vertical;
+  font-family: inherit;
+}
+
+.task-form small {
+  color: var(--text-secondary);
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.task-card {
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  padding: 15px;
+  border-left: 4px solid var(--primary-color);
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.task-header h4 {
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.task-status {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+}
+
+.task-description {
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+}
+
+.task-details {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.task-details p {
+  margin: 5px 0;
+}
+
+@media (max-width: 1024px) {
+  .task-management-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .task-management-container {
+    margin: 20px auto;
+    padding: 0 15px;
+  }
+
+  .task-form-section,
+  .task-list-section {
+    padding: 20px;
+  }
+}
+
+

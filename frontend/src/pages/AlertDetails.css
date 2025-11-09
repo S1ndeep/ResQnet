@@ -1,0 +1,152 @@
+.alert-details-page {
+  min-height: calc(100vh - 80px);
+  padding: 40px 20px;
+  background: var(--bg-primary);
+}
+
+.btn-back {
+  margin-bottom: 30px;
+}
+
+.alert-details-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.alert-info-panel {
+  background: var(--bg-secondary);
+  padding: 30px;
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+}
+
+.alert-info-panel h1 {
+  font-size: 32px;
+  margin-bottom: 20px;
+  color: var(--text-primary);
+}
+
+.alert-meta {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.alert-section {
+  margin-bottom: 30px;
+}
+
+.alert-section h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: var(--accent-color);
+}
+
+.alert-section p {
+  color: var(--text-primary);
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.text-secondary {
+  color: var(--text-secondary) !important;
+  font-size: 14px;
+}
+
+.alert-actions {
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 1px solid var(--border-color);
+}
+
+.btn-claim {
+  width: 100%;
+  padding: 16px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.claim-notice {
+  margin-top: 15px;
+  color: var(--text-secondary);
+  font-size: 14px;
+  text-align: center;
+}
+
+.alert-map-panel {
+  background: var(--bg-secondary);
+  padding: 30px;
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+}
+
+.alert-map-panel h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: var(--text-primary);
+}
+
+.map-container {
+  height: 500px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+.badge {
+  padding: 6px 14px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.badge-critical {
+  background: #dc3545;
+  color: white;
+}
+
+.badge-high {
+  background: #fd7e14;
+  color: white;
+}
+
+.badge-medium {
+  background: #ffc107;
+  color: #000;
+}
+
+.badge-low {
+  background: #28a745;
+  color: white;
+}
+
+.badge-pending {
+  background: #6c757d;
+  color: white;
+}
+
+.badge-claimed {
+  background: #007bff;
+  color: white;
+}
+
+.badge-category {
+  background: var(--accent-color);
+  color: white;
+}
+
+@media (max-width: 1024px) {
+  .alert-details-content {
+    grid-template-columns: 1fr;
+  }
+
+  .map-container {
+    height: 400px;
+  }
+}
+
+
+

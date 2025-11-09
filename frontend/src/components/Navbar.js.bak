@@ -1,0 +1,453 @@
+import React, { useState, useRef, useEffect } from 'react';import React, { useState, useRef, useEffect } from 'react';
+
+import { Link, useNavigate } from 'react-router-dom';import { Link, useNavigate } from 'react-router-dom';
+
+import { useAuth } from '../context/AuthContext';import { useAuth } from '../context/AuthContext';
+
+import ThemeToggle from './ThemeToggle';import ThemeToggle from './ThemeToggle';
+
+import './Navbar.css';import './Navbar.css';
+
+
+
+export default function Navbar() {export default function Navbar() {
+
+  const { user, logout, loading } = useAuth();  const { user, logout, loading } = useAuth();
+
+  const navigate = useNavigate();  const navigate = useNavigate();
+
+  const [mobileOpen, setMobileOpen] = useState(false);  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const [userMenuOpen, setUserMenuOpen] = useState(false);  const [userMenuOpen, setUserMenuOpen] = useState(false);
+
+  const menuRef = useRef(null);  const menuRef = useRef(null);
+
+  const btnRef = useRef(null);  const btnRef = useRef(null);
+
+  const userMenuRef = useRef(null);  const userMenuRef = useRef(null);
+
+
+
+  const handleLogout = () => {  const handleLogout = () => {
+
+    logout();    logout();
+
+    setUserMenuOpen(false);    setUserMenuOpen(false);
+
+    setMobileOpen(false);    setMobileOpen(false);
+
+    navigate('/');    navigate('/');
+
+  };  };
+
+
+
+  // Get user display name  const getUserDisplayName = () => {
+
+  const getUserDisplayName = () => {    if (!user) return '';
+
+    if (!user) return '';    return user.name || user.email?.split('@')[0] || 'User';
+
+    return user.name || user.email?.split('@')[0] || 'User';  };
+
+  };
+
+  // Close menus on escape key and outside clicks
+
+  // Close menus on escape key and outside clicks  useEffect(() => {
+
+  useEffect(() => {    const handleKeyDown = (e) => {
+
+    const handleKeyDown = (e) => {      if (e.key === 'Escape') {
+
+      if (e.key === 'Escape') {        setMobileOpen(false);
+
+        setMobileOpen(false);        setUserMenuOpen(false);
+
+        setUserMenuOpen(false);      }
+
+      }    };
+
+    };
+
+    const handleClickOutside = (e) => {
+
+    const handleClickOutside = (e) => {      // Close mobile menu if clicking outside
+
+      // Close mobile menu if clicking outside      if (mobileOpen && 
+
+      if (mobileOpen &&           menuRef.current && 
+
+          menuRef.current &&           !menuRef.current.contains(e.target) && 
+
+          !menuRef.current.contains(e.target) &&           !btnRef.current.contains(e.target)) {
+
+          !btnRef.current.contains(e.target)) {        setMobileOpen(false);
+
+        setMobileOpen(false);      }
+
+      }      
+
+            // Close user menu if clicking outside
+
+      // Close user menu if clicking outside      if (userMenuOpen && 
+
+      if (userMenuOpen &&           userMenuRef.current && 
+
+          userMenuRef.current &&           !userMenuRef.current.contains(e.target)) {
+
+          !userMenuRef.current.contains(e.target)) {        setUserMenuOpen(false);
+
+        setUserMenuOpen(false);      }
+
+      }    };
+
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    document.addEventListener('keydown', handleKeyDown);    document.addEventListener('mousedown', handleClickOutside);
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+
+    return () => {      document.removeEventListener('keydown', handleKeyDown);
+
+      document.removeEventListener('keydown', handleKeyDown);      document.removeEventListener('mousedown', handleClickOutside);
+
+      document.removeEventListener('mousedown', handleClickOutside);    };
+
+    };  }, [mobileOpen, userMenuOpen]);
+
+  }, [mobileOpen, userMenuOpen]);
+
+  return (
+
+  return (    <>
+
+    <nav className="navbar" role="navigation" aria-label="Main navigation">      <nav className="navbar" role="navigation" aria-label="Main navigation">
+
+      <div className="container">        <div className="container">
+
+        {/* Brand/Logo */}          <Link to="/" className="navbar-brand" onClick={() => { setMobileOpen(false); setUserMenuOpen(false); }}>
+
+        <Link to="/" className="navbar-brand">            🚨 Crisis Connect
+
+          Crisis Connect          </Link>
+
+        </Link>          <button
+
+            ref={hamburgerRef}
+
+        {/* Main navigation */}            className={`hamburger ${mobileOpen ? 'open' : ''}`}
+
+        <div className={`navbar-links ${mobileOpen ? 'open' : ''}`} ref={menuRef}>            aria-label="Toggle navigation menu"
+
+          <Link to="/" onClick={() => setMobileOpen(false)}>Home</Link>            aria-controls="primary-navigation"
+
+          <Link to="/about" onClick={() => setMobileOpen(false)}>About</Link>            aria-expanded={mobileOpen}
+
+          <Link to="/news" onClick={() => setMobileOpen(false)}>News</Link>            onClick={() => setMobileOpen(!mobileOpen)}
+
+          <Link to="/contact" onClick={() => setMobileOpen(false)}>Contact</Link>          >
+
+        </div>            <span />
+
+            <span />
+
+        {/* Right side controls */}            <span />
+
+        <div className="navbar-controls">          </button>
+
+          <ThemeToggle />
+
+                    <div
+
+          {!loading && (            id="primary-navigation"
+
+            user ? (            ref={menuRef}
+
+              <div className="user-menu" ref={userMenuRef}>            className={`navbar-links ${mobileOpen ? 'open' : ''}`}
+
+                <button            role="menubar"
+
+                  className="user-menu-button"            aria-label="Primary menu"
+
+                  onClick={() => setUserMenuOpen(!userMenuOpen)}          >
+
+                  aria-expanded={userMenuOpen}            import React, { useState, useRef, useEffect } from 'react';
+
+                >            import { Link, useNavigate } from 'react-router-dom';
+
+                  <span className="user-avatar">            import { useAuth } from '../context/AuthContext';
+
+                    {getUserDisplayName().charAt(0).toUpperCase()}            import ThemeToggle from './ThemeToggle';
+
+                  </span>            import './Navbar.css';
+
+                  <span className="user-name">{getUserDisplayName()}</span>
+
+                </button>            const Navbar = () => {
+
+                {userMenuOpen && (              const { user, logout, loading } = useAuth();
+
+                  <div className="user-dropdown">              const navigate = useNavigate();
+
+                    <div className="user-header">              const [mobileOpen, setMobileOpen] = useState(false);
+
+                      Signed in as<br />              const menuRef = useRef(null);
+
+                      <strong>{user.email}</strong>              const hamburgerRef = useRef(null);
+
+                    </div>              const userMenuRef = useRef(null);
+
+                    <div className="menu-divider"></div>              const [userMenuOpen, setUserMenuOpen] = useState(false);
+
+                    <Link to="/dashboard" onClick={() => setUserMenuOpen(false)}>
+
+                      Dashboard              const handleLogout = () => {
+
+                    </Link>                logout();
+
+                    {user.role === 'volunteer' && (                navigate('/');
+
+                      <Link to="/volunteer" className="volunteer-link" onClick={() => setUserMenuOpen(false)}>                setUserMenuOpen(false);
+
+                        Volunteer Portal                setMobileOpen(false);
+
+                      </Link>              };
+
+                    )}
+
+                    {user.role === 'admin' && (              useEffect(() => {
+
+                      <Link to="/admin" onClick={() => setUserMenuOpen(false)}>                const onKeyDown = (e) => {
+
+                        Admin Console                  if (e.key === 'Escape') {
+
+                      </Link>                    if (mobileOpen) {
+
+                    )}                      setMobileOpen(false);
+
+                    <div className="menu-divider"></div>                      hamburgerRef.current?.focus();
+
+                    <button onClick={handleLogout} className="menu-item">                    }
+
+                      Sign out                    if (userMenuOpen) setUserMenuOpen(false);
+
+                    </button>                  }
+
+                  </div>                };
+
+                )}
+
+              </div>                const onClickOutside = (e) => {
+
+            ) : (                  if (mobileOpen && menuRef.current && !menuRef.current.contains(e.target) && !hamburgerRef.current.contains(e.target)) {
+
+              <div className="auth-buttons">                    setMobileOpen(false);
+
+                <Link to="/register" className="btn btn-text">Sign up</Link>                  }
+
+                <Link to="/login" className="btn btn-primary">Sign in</Link>                  if (userMenuOpen && userMenuRef.current && !userMenuRef.current.contains(e.target)) {
+
+              </div>                    setUserMenuOpen(false);
+
+            )                  }
+
+          )}                };
+
+        </div>
+
+                document.addEventListener('keydown', onKeyDown);
+
+        {/* Mobile menu button */}                document.addEventListener('click', onClickOutside);
+
+        <button                return () => {
+
+          ref={btnRef}                  document.removeEventListener('keydown', onKeyDown);
+
+          className={`hamburger ${mobileOpen ? 'open' : ''}`}                  document.removeEventListener('click', onClickOutside);
+
+          aria-label="Toggle navigation menu"                };
+
+          aria-expanded={mobileOpen}              }, [mobileOpen, userMenuOpen]);
+
+          onClick={() => setMobileOpen(!mobileOpen)}
+
+        >              useEffect(() => {
+
+          <span />                if (mobileOpen) {
+
+          <span />                  const first = menuRef.current?.querySelector('a, button');
+
+          <span />                  first?.focus();
+
+        </button>                }
+
+      </div>              }, [mobileOpen]);
+
+
+
+      {/* Mobile menu dropdown */}              useEffect(() => {
+
+      {mobileOpen && (                if (userMenuOpen) {
+
+        <div className="mobile-menu">                  const first = userMenuRef.current?.querySelector('a, button');
+
+          <div className="mobile-links">                  first?.focus();
+
+            <Link to="/" onClick={() => setMobileOpen(false)}>Home</Link>                }
+
+            <Link to="/about" onClick={() => setMobileOpen(false)}>About</Link>              }, [userMenuOpen]);
+
+            <Link to="/news" onClick={() => setMobileOpen(false)}>News</Link>
+
+            <Link to="/contact" onClick={() => setMobileOpen(false)}>Contact</Link>              const isLoadingAuth = loading;
+
+            {user?.role === 'admin' && (
+
+              <Link to="/alerts" onClick={() => setMobileOpen(false)}>Alerts</Link>              return (
+
+            )}                <nav className="navbar" role="navigation" aria-label="Main navigation">
+
+          </div>                  <div className="container">
+
+          {user && (                    <Link to="/" className="navbar-brand" onClick={() => { setMobileOpen(false); setUserMenuOpen(false); }}>
+
+            <>                      import React, { useState, useRef, useEffect } from 'react';
+
+              <div className="menu-divider"></div>                      import { Link, useNavigate } from 'react-router-dom';
+
+              <div className="mobile-user-section">                      import { useAuth } from '../context/AuthContext';
+
+                <Link to="/dashboard" onClick={() => setMobileOpen(false)}>Dashboard</Link>                      import ThemeToggle from './ThemeToggle';
+
+                {user.role === 'volunteer' && (                      import './Navbar.css';
+
+                  <Link to="/volunteer" onClick={() => setMobileOpen(false)}>Volunteer Portal</Link>
+
+                )}                      // Minimal, clean navbar implementation: guests see Login/Register;
+
+                {user.role === 'admin' && (                      // authenticated users get a compact dropdown with role-aware links.
+
+                  <Link to="/admin" onClick={() => setMobileOpen(false)}>Admin Console</Link>                      export default function Navbar() {
+
+                )}                        const { user, logout, loading } = useAuth();
+
+                <button onClick={handleLogout} className="btn btn-text">                        const navigate = useNavigate();
+
+                  Sign out                        const [mobileOpen, setMobileOpen] = useState(false);
+
+                </button>                        const [userMenuOpen, setUserMenuOpen] = useState(false);
+
+              </div>                        const menuRef = useRef(null);
+
+            </>                        const btnRef = useRef(null);
+
+          )}
+
+        </div>                        const handleLogout = () => {
+
+      )}                          logout();
+
+    </nav>                          setUserMenuOpen(false);
+
+  );                          setMobileOpen(false);
+
+}                          navigate('/');
+                        };
+
+                        useEffect(() => {
+                          const onClick = (e) => {
+                            if (menuRef.current && !menuRef.current.contains(e.target) && !btnRef.current.contains(e.target)) {
+                              setUserMenuOpen(false);
+                            }
+                          };
+                          document.addEventListener('click', onClick);
+                          return () => document.removeEventListener('click', onClick);
+                        }, []);
+
+                        return (
+                          <nav className="navbar" role="navigation" aria-label="Main navigation">
+                            <div className="container">
+                              <Link to="/" className="navbar-brand" onClick={() => { setMobileOpen(false); setUserMenuOpen(false); }}>
+                                🚨 Crisis Connect
+                              </Link>
+
+                              <button
+                                ref={btnRef}
+                                className={`hamburger ${mobileOpen ? 'open' : ''}`}
+                                aria-label="Toggle navigation"
+                                aria-expanded={mobileOpen}
+                                onClick={() => setMobileOpen((s) => !s)}
+                              >
+                                <span />
+                                <span />
+                                <span />
+                              </button>
+
+                              <div className={`navbar-links ${mobileOpen ? 'open' : ''}`} ref={menuRef}>
+                                <Link to="/" onClick={() => setMobileOpen(false)}>Home</Link>
+                                <Link to="/about" onClick={() => setMobileOpen(false)}>About</Link>
+                                <Link to="/news" onClick={() => setMobileOpen(false)}>News</Link>
+                                <Link to="/alerts" onClick={() => setMobileOpen(false)}>Alerts</Link>
+                                <Link to="/contact" onClick={() => setMobileOpen(false)}>Contact</Link>
+
+                                {/* Mobile auth block */}
+                                {mobileOpen && (
+                                  <div className="mobile-auth-block">
+                                    {!loading && user ? (
+                                      <>
+                                        <Link to="/dashboard" onClick={() => setMobileOpen(false)}>Dashboard</Link>
+                                        {user.role === 'civilian' && (<Link to="/report-incident" onClick={() => setMobileOpen(false)}>Report Incident</Link>)}
+                                        {user.role === 'volunteer' && (<Link to="/volunteer" onClick={() => setMobileOpen(false)}>Volunteer</Link>)}
+                                        <button className="btn btn-secondary" onClick={handleLogout}>Logout</button>
+                                      </>
+                                    ) : !loading ? (
+                                      <>
+                                        <Link to="/login" onClick={() => setMobileOpen(false)}>Login</Link>
+                                        <Link to="/register" onClick={() => setMobileOpen(false)}>Register</Link>
+                                      </>
+                                    ) : null}
+                                    <div style={{ padding: 8 }}><ThemeToggle /></div>
+                                  </div>
+                                )}
+                              </div>
+
+                              <div className="navbar-controls">
+                                {!loading && user ? (
+                                  <div className="user-dropdown" ref={menuRef}>
+                                    <button className="user-btn" onClick={() => setUserMenuOpen((s) => !s)} aria-expanded={userMenuOpen}>
+                                      {user.name} ▾
+                                    </button>
+                                    {userMenuOpen && (
+                                      <div className="user-menu">
+                                        <Link to="/dashboard" onClick={() => setUserMenuOpen(false)}>Dashboard</Link>
+                                        <Link to="/map" onClick={() => setUserMenuOpen(false)}>Map View</Link>
+                                        {user.role === 'civilian' && (<Link to="/report-incident" onClick={() => setUserMenuOpen(false)}>Report</Link>)}
+                                        {user.role === 'volunteer' && (<Link to="/volunteer" onClick={() => setUserMenuOpen(false)}>Volunteer Portal</Link>)}
+                                        {user.role === 'admin' && (<Link to="/admin" onClick={() => setUserMenuOpen(false)}>Admin</Link>)}
+                                        <button className="btn btn-secondary" onClick={handleLogout}>Logout</button>
+                                        <div style={{ padding: 8 }}><ThemeToggle /></div>
+                                      </div>
+                                    )}
+                                  </div>
+                                ) : !loading ? (
+                                  <div className="auth-controls">
+                                    <Link to="/login" className="btn btn-primary">Login</Link>
+                                    <div className="register-prompt">Don't have an account? <Link to="/register">Register</Link></div>
+                                    <div style={{ marginLeft: 12 }}><ThemeToggle /></div>
+                                  </div>
+                                ) : (
+                                  <div style={{ display: 'flex', alignItems: 'center' }}><ThemeToggle /></div>
+                                )}
+                              </div>
+                            </div>
+                          </nav>
+                        );
+                      }
+      {!isLoadingAuth && user && user.role === 'admin' && (
+
+        <nav className="navbar-admin-second">
