@@ -1,11 +1,8 @@
 pipeline {
     agent any
 
-    tools {
-        nodejs "node18"
-    }
-
     environment {
+        PATH = "/usr/bin:/usr/local/bin:${env.PATH}"   // Ensures WSL Node + npm are available
         IMAGE_TAG = "${BUILD_NUMBER}"
         BACKEND_IMAGE = "crisis-connect-backend:${IMAGE_TAG}"
         FRONTEND_IMAGE = "crisis-connect-frontend:${IMAGE_TAG}"
@@ -42,7 +39,7 @@ pipeline {
             steps {
                 echo '🔍 Linting backend code...'
                 dir('backend') {
-                    sh 'echo "Backend lint goes here (configure eslint)"'
+                    sh 'echo "Run ESLint here: npm run lint"'
                 }
             }
         }
@@ -51,7 +48,7 @@ pipeline {
             steps {
                 echo '🔍 Linting frontend code...'
                 dir('frontend') {
-                    sh 'echo "Frontend lint goes here (configure eslint)"'
+                    sh 'echo "Run ESLint for frontend: npm run lint"'
                 }
             }
         }
@@ -69,7 +66,7 @@ pipeline {
             steps {
                 echo '🧪 Running backend tests...'
                 dir('backend') {
-                    sh 'echo "Backend tests here (add test command)"'
+                    sh 'echo "Add backend test command: npm test"'
                 }
             }
         }
@@ -78,7 +75,7 @@ pipeline {
             steps {
                 echo '🧪 Running frontend tests...'
                 dir('frontend') {
-                    sh 'echo "Frontend tests here (add npm test)"'
+                    sh 'echo "Add frontend test command: npm test"'
                 }
             }
         }
@@ -94,17 +91,22 @@ pipeline {
         }
 
         stage('Push Docker Images') {
-            when {
-                branch 'main'
-            }
+            when { branch "main" }
             steps {
                 echo '📤 Pushing Docker images to registry...'
-                withCredentials([usernamePassword(credentialsId: 'docker-registry-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'docker-registry-creds', 
+                        usernameVariable: 'DOCKER_USER', 
+                        passwordVariable: 'DOCKER_PASS'
+                    )
+                ]) {
+
                     sh """
+                        echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin
+
                         docker tag ${BACKEND_IMAGE} ${DOCKER_USER}/crisis-connect-backend:${IMAGE_TAG}
                         docker tag ${FRONTEND_IMAGE} ${DOCKER_USER}/crisis-connect-frontend:${IMAGE_TAG}
-
-                        echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin
 
                         docker push ${DOCKER_USER}/crisis-connect-backend:${IMAGE_TAG}
                         docker push ${DOCKER_USER}/crisis-connect-frontend:${IMAGE_TAG}
@@ -116,13 +118,11 @@ pipeline {
         }
 
         stage('Deploy') {
-            when {
-                branch 'main'
-            }
+            when { branch "main" }
             steps {
                 echo '🚀 Deploying to production...'
                 sh """
-                    echo "Configure your deployment commands here"
+                    echo "Add your deployment script here"
                 """
             }
         }
@@ -130,13 +130,13 @@ pipeline {
         stage('Docker Cleanup') {
             steps {
                 echo '🧹 Cleaning Docker cache...'
-                sh 'docker system prune -f || true'
+                sh 'docker system prune -af || true'
             }
         }
 
         stage('Workspace Cleanup') {
             steps {
-                echo '🧹 Cleaning workspace safely...'
+                echo '🧹 Cleaning workspace...'
                 cleanWs()
             }
         }
