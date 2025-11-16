@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+        nodejs "node18"
+    }
+
     environment {
         IMAGE_TAG = "${BUILD_NUMBER}"
         BACKEND_IMAGE = "crisis-connect-backend:${IMAGE_TAG}"
@@ -95,20 +99,18 @@ pipeline {
             }
             steps {
                 echo '📤 Pushing Docker images to registry...'
-                script {
-                    withCredentials([usernamePassword(credentialsId: 'docker-registry-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                        sh """
-                            docker tag ${BACKEND_IMAGE} ${DOCKER_USER}/crisis-connect-backend:${IMAGE_TAG}
-                            docker tag ${FRONTEND_IMAGE} ${DOCKER_USER}/crisis-connect-frontend:${IMAGE_TAG}
+                withCredentials([usernamePassword(credentialsId: 'docker-registry-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    sh """
+                        docker tag ${BACKEND_IMAGE} ${DOCKER_USER}/crisis-connect-backend:${IMAGE_TAG}
+                        docker tag ${FRONTEND_IMAGE} ${DOCKER_USER}/crisis-connect-frontend:${IMAGE_TAG}
 
-                            echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin
+                        echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin
 
-                            docker push ${DOCKER_USER}/crisis-connect-backend:${IMAGE_TAG}
-                            docker push ${DOCKER_USER}/crisis-connect-frontend:${IMAGE_TAG}
+                        docker push ${DOCKER_USER}/crisis-connect-backend:${IMAGE_TAG}
+                        docker push ${DOCKER_USER}/crisis-connect-frontend:${IMAGE_TAG}
 
-                            docker logout
-                        """
-                    }
+                        docker logout
+                    """
                 }
             }
         }
