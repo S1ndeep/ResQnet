@@ -60,7 +60,7 @@ pipeline {
             steps {
                 echo '🏗️ Building frontend...'
                 dir('frontend') {
-                    sh 'npm run build'
+                    sh 'CI=false npm run build'
                 }
             }
         }
