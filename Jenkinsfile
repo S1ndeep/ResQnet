@@ -2,14 +2,13 @@ pipeline {
     agent any
 
     environment {
-        REGISTRY = credentials('docker-registry-url') // Set in Jenkins credentials
         IMAGE_TAG = "${BUILD_NUMBER}"
-        BACKEND_IMAGE = "${REGISTRY}/crisis-connect-backend:${IMAGE_TAG}"
-        FRONTEND_IMAGE = "${REGISTRY}/crisis-connect-frontend:${IMAGE_TAG}"
-        DOCKER_REGISTRY_CREDS = credentials('docker-registry-creds') // Docker Hub or private registry
+        BACKEND_IMAGE = "crisis-connect-backend:${IMAGE_TAG}"
+        FRONTEND_IMAGE = "crisis-connect-frontend:${IMAGE_TAG}"
     }
 
     stages {
+
         stage('Checkout') {
             steps {
                 echo '🔄 Checking out code from repository...'
@@ -39,8 +38,7 @@ pipeline {
             steps {
                 echo '🔍 Linting backend code...'
                 dir('backend') {
-                    // Optional: add eslint or similar linter
-                    sh 'echo "Backend lint check (configure linter in package.json)"'
+                    sh 'echo "Backend lint goes here (configure eslint)"'
                 }
             }
         }
@@ -49,8 +47,7 @@ pipeline {
             steps {
                 echo '🔍 Linting frontend code...'
                 dir('frontend') {
-                    // eslint is part of react-scripts
-                    sh 'echo "Frontend lint check (configure eslint)"'
+                    sh 'echo "Frontend lint goes here (configure eslint)"'
                 }
             }
         }
@@ -66,20 +63,18 @@ pipeline {
 
         stage('Test Backend') {
             steps {
-                echo '✅ Running backend tests...'
+                echo '🧪 Running backend tests...'
                 dir('backend') {
-                    sh 'echo "Backend tests (configure test command in package.json)"'
-                    // sh 'npm test' when you have tests set up
+                    sh 'echo "Backend tests here (add test command)"'
                 }
             }
         }
 
         stage('Test Frontend') {
             steps {
-                echo '✅ Running frontend tests...'
+                echo '🧪 Running frontend tests...'
                 dir('frontend') {
-                    sh 'echo "Frontend tests (configure test command in package.json)"'
-                    // sh 'npm test -- --watchAll=false' when you have tests set up
+                    sh 'echo "Frontend tests here (add npm test)"'
                 }
             }
         }
@@ -87,27 +82,30 @@ pipeline {
         stage('Build Docker Images') {
             steps {
                 echo '🐳 Building Docker images...'
-                script {
-                    sh """
-                        docker build -t ${BACKEND_IMAGE} ./backend
-                        docker build -t ${FRONTEND_IMAGE} ./frontend
-                    """
-                }
+                sh """
+                    docker build -t ${BACKEND_IMAGE} ./backend
+                    docker build -t ${FRONTEND_IMAGE} ./frontend
+                """
             }
         }
 
         stage('Push Docker Images') {
             when {
-                branch 'main' // Only push on main branch
+                branch 'main'
             }
             steps {
                 echo '📤 Pushing Docker images to registry...'
                 script {
                     withCredentials([usernamePassword(credentialsId: 'docker-registry-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                         sh """
+                            docker tag ${BACKEND_IMAGE} ${DOCKER_USER}/crisis-connect-backend:${IMAGE_TAG}
+                            docker tag ${FRONTEND_IMAGE} ${DOCKER_USER}/crisis-connect-frontend:${IMAGE_TAG}
+
                             echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin
-                            docker push ${BACKEND_IMAGE}
-                            docker push ${FRONTEND_IMAGE}
+
+                            docker push ${DOCKER_USER}/crisis-connect-backend:${IMAGE_TAG}
+                            docker push ${DOCKER_USER}/crisis-connect-frontend:${IMAGE_TAG}
+
                             docker logout
                         """
                     }
@@ -121,20 +119,23 @@ pipeline {
             }
             steps {
                 echo '🚀 Deploying to production...'
-                script {
-                    // Example: update docker-compose or deploy to Kubernetes
-                    sh """
-                        echo "Deployment step - configure based on your infrastructure"
-                        # docker compose -f docker-compose.prod.yml up -d
-                    """
-                }
+                sh """
+                    echo "Configure your deployment commands here"
+                """
             }
         }
 
-        stage('Cleanup') {
+        stage('Docker Cleanup') {
             steps {
-                echo '🧹 Cleaning up...'
-                sh 'docker system prune -f'
+                echo '🧹 Cleaning Docker cache...'
+                sh 'docker system prune -f || true'
+            }
+        }
+
+        stage('Workspace Cleanup') {
+            steps {
+                echo '🧹 Cleaning workspace safely...'
+                cleanWs()
             }
         }
     }
@@ -145,9 +146,6 @@ pipeline {
         }
         failure {
             echo '❌ Pipeline failed. Check logs above.'
-        }
-        always {
-            cleanWs() // Clean workspace after build
         }
     }
 }
